@@ -1,0 +1,593 @@
+---
+title: "First Steps with Python"
+author: "Matt Steele"
+format: 
+  revealjs:
+    theme: white
+    transition: slide
+editor: visual
+execute: 
+  eval: false
+---
+
+## Welcome
+
+-   [Matt Steele](https://directory.lib.wvu.edu/employee/210/)
+-   [Data Cleaning and Analysis with Python](https://wvu.libcal.com/event/12979455)
+-   [Data Visualization and Presentation with Python](https://wvu.libcal.com/event/12979521)
+-   [Date Services Workshops](https://wvu.libcal.com/calendar/researchcommons?cid=9552&t=g&d=0000-00-00&cal=9552&ct=59746&inc=0)
+
+## Resources
+
+-   [Official Site for Python](https://www.python.org/)
+
+-   [Official Site for Anaconda](https://www.anaconda.com/)
+
+-   [Jupyter Notebooks](https://jupyter.org/)
+
+-   [O'Reilly Learning Platform](https://databases.lib.wvu.edu/connect/1540334373)
+
+    -   Python for Data Analysis, 3rd Edition
+
+    -   Python for Data Analysis: Step-By-Step with Projects
+
+## Agenda
+
+1.  Introduction to Python and Python Environments
+2.  Functions and Arguments
+3.  Creating Variables
+4.  Comparisons, Conditionals, and Loops
+5.  Packages and Libraries
+
+## Why Python
+
+-   Open-source
+
+    -   Rich Ecosystem of Libraries
+
+    -   Integration with Other Tools and Languages
+
+    -   Platform Independent and Non-proprietary
+
+    -   Reproducibility and Transparency
+
+    -   Integrates into Proprietary Software
+
+    -   Share-able
+
+    -   Add-on Libraries
+
+## Anaconda Navigator
+
+<https://www.anaconda.com/>
+
+Anaconda is a popular and powerful distribution of Python and R programming languages specifically tailored for data science, machine learning, and scientific computing.
+
+------------------------------------------------------------------------
+
+## What is JupyterLab?
+
+<https://jupyter.org/>
+
+-   JupyterLab is an interactive development environment for notebooks, code, and data.
+-   It offers an enhanced interface for working with Jupyter Notebooks, terminals, text editors, and file browsers all in one place.
+
+## Opening JupyterLab through Anaconda Navigator
+
+1.  **Open Anaconda Navigator**
+    -   Follow the steps above to launch Anaconda Navigator.
+2.  **Open JupyterLab**
+    -   Click on **JupyterLab** within Anaconda Navigator to open it.
+
+## Set up your Environment
+
+::: r-fit-text
+3.  **Select Your Working Directory**
+    -   Use the directory navigator on the right to select the folder you will be working in.
+4.  **Start a New Notebook**
+    -   Click on **File** \> **New Notebook** \> **Python 3** to start a new Python notebook.
+5.  **Select the Python Kernel**
+    -   Ensure that the Python kernel is selected. You can check this in the top-right corner of the notebook interface.
+6.  **Save Your Notebook**
+    -   Click on **File** \> **Save Notebook As** to give your notebook a name and save it.
+7.  **Save the Current Workspace**
+    -   Click on **File** \> **Save Current Workspace As** to save your workspace settings.
+:::
+
+------------------------------------------------------------------------
+
+## Setting Your Preferences in JupyterLab
+
+::: r-fit-text
+1.  **Theme Customization**
+    -   Go to **Settings** \> **JupyterLab Theme** to switch between light or dark modes.
+2.  **Tab and Layout Preferences**
+    -   Adjust how files and notebooks open (e.g., side-by-side or in tabs) under **Settings** \> **Layout Mode**.
+3.  **Editor Settings**
+    -   Modify editor settings such as line numbers, tab size, and indentation in **Settings** \> **Text Editor Settings**.
+4.  **Auto-Save**
+    -   Enable or disable auto-saving your notebooks and set the interval under **Settings** \> **Autosave Interval**.
+5.  **Shortcuts**
+    -   Customize keyboard shortcuts for running cells, switching windows, or opening the terminal under **Settings** \> **Advanced Settings Editor** \> **Keyboard Shortcuts**.
+:::
+
+## Cells
+
+Unit where you can write and run code, document their work, and format outputs.
+
+There are three main types of cells:
+
+1.  **Code Cells** -- For writing and running Python code.
+2.  **Markdown Cells** -- For writing formatted text (like headings, lists, links).
+3.  **Raw Cells** -- For displaying unformatted text or data.
+
+## Working Data
+
+In Python, you can work with data by defining variables, lists, or other data structures. Let's start by entering some data and practicing basic operations.
+
+## Lists
+
+Lists are used to store multiple items in a single variable. Lists are one of 4 built-in data types in Python used to store collections of data, the other 3 are Tuple, Set, and Dictionary, all with different qualities and usage.
+
+<br>
+
+```{python}
+#| label: enter list
+#| eval: false
+#| echo: true
+
+my_var = [1, 2, 3, 4]
+print(my_var)
+
+```
+
+## Import
+
+Using import for a library will bring all functions for the library into your workspace.
+
+<br>
+
+```{python}
+#| label: import
+#| eval: false
+#| echo: true
+
+import pandas as pd
+
+# Example: Reading a CSV file with pandas
+# Assume we have a 'data.csv' file
+reviews_df = pd.read_csv("customer_reviews.csv")
+
+# Display the first 5 rows of the data
+print(reviews_df.head())
+
+```
+
+## Functions
+
+used to give commands to perform a tasks.
+
+![](toolbox.png)
+
+<br>
+
+```{python}
+#| label: example function
+#| eval: false
+#| echo: true
+
+round(3.141592653589793)
+
+```
+
+## Arguments
+
+used to provide the details about how your function operates
+
+![](hammer.jpg)
+
+<br>
+
+```{python}
+#| label: example_arguments
+#| eval: false
+#| echo: true
+
+round(3.141592653589793, 5)
+
+```
+
+::: notes
+arguments in python as the ingredients or details you provide to a function, like telling a chef how to prepare your food. These arguments help customize what the function does, and the function's output is like the dish you receive based on your requests.
+:::
+
+## Documentation
+
+provides the necessary information, explanations, examples, and guidance to help you learn, understand, and effectively use R functions and packages.
+
+<br>
+
+-   [Base Python Standard Library](https://docs.python.org/3/library/index.html)
+-   [Pandas Documentation](https://pandas.pydata.org/docs/)
+-   [NumPy Documentation](https://numpy.org/doc/stable/)
+
+## Getting Help in Python
+
+1.  **Help with Functions and Libraries**
+    -   Use the `help()` function to get information about a function or library.
+
+<br>
+
+```{python}
+#| label: help
+#| eval: false
+#| echo: true
+
+ help(print)  # Get help on the print function
+   help('pandas')  # Get help on the pandas library
+
+```
+
+## Variables
+
+used to store and work on data (numbers, words, tables, and more).
+
+<img src="drawer.png" alt="drawer" width="55%"/>
+
+::: notes
+"object" is a fundamental concept that can be thought of as a container or a holder for data. Just like in everyday life, you use different containers like bags, boxes, or drawers to store and organize your things
+:::
+
+## Creating and Using Variables
+
+### Example 1: Storing Numbers
+
+<br>
+
+```{python}
+#| label: variable example
+#| eval: false
+#| echo: true
+
+# Storing an integer
+age = 25
+
+# Storing a floating-point number in Fahrenheit
+temperature_fahrenheit = 100.6
+
+# Converting Fahrenheit to Celsius
+temperature_celsius = (temperature_fahrenheit - 32) * 5 / 9
+
+
+print(age)
+print(temperature_celsius) 
+
+
+```
+
+## Naming Variables
+
+-   Use descriptive and meaningful names that indicate the purpose of the object
+-   Use lowercase letters.
+-   Use underscores to separate words (e.g., my_variable_name).
+-   Avoid using reserved words or functions (e.g., "if," "else," "for," "function").
+
+## Data Types in Python
+
+::: r-fit-text
+| Type        | Description                                                                                         |
+|----------------------|--------------------------------------------------|
+| **Integer** | Represents whole numbers. Example: `5`, `-3`, `42`.                                                 |
+| **Float**   | Represents real numbers (numbers with decimal points). Example: `3.14`, `-0.001`.                   |
+| **String**  | Represents text, words, and strings of characters. Enclosed in double (`"`) or single (`'`) quotes. |
+| **Boolean** | Represents binary values used for decision-making. Typically `True` or `False`.                     |
+| **Date**    | Handles dates and times. Use the `datetime` module. Example: `datetime.date(2024, 9, 13)`.          |
+:::
+
+## Creating a Function
+
+In Python, functions allow you to package a block of code that can be reused throughout your program. This makes your code more organized, readable, and reusable.
+
+<br>
+
+```{python}
+#| label: create_function
+#| eval: false
+#| echo: true
+
+# Step 1: Create Variables
+
+name = input("What is your name: ")
+age = input("What is your age: ")
+
+
+#Step 2: Define the function
+
+def demo(name, age):
+    print(name, age)
+   
+#Step 3: Call the function
+
+demo(name, age)
+
+```
+
+## Running Code
+
+In Python, indents are used to define the structure of the code. Unlike some other programming languages that use curly braces {} or keywords to indicate blocks of code, Python uses indentation. This makes the code more readable and easier to understand.
+
+<br>
+
+```{python}
+#| label: indentation
+#| eval: false
+#| echo: true
+
+def check_number(number):  # Starts the function; the indented lines below are part of this function
+    if number > 0:
+        print("The number is positive.")
+    elif number < 0:
+        print("The number is negative.")
+    else:
+        print("The number is zero.")  # This is where the function's code ends
+
+print("Hello World")  # This starts a new section of code
+
+
+```
+
+## Boolean Operators
+
+|                          |     |
+|--------------------------|-----|
+| Equal                    | ==  |
+| Not Equal                | !=  |
+| Greater Than             | \>  |
+| Less Than                | \<  |
+| Greater Than or Equal to | \>= |
+| Less Than or Equal to    | \<= |
+
+## Comparions
+
+Use comparison operators to determine if objects in python are identical to each other.
+
+<br>
+
+```{python}
+#| label: comparisons
+#| eval: false
+#| echo: true
+
+#Comparison
+
+fruit1= "apple"
+fruit2= "orange"
+
+#Are items/variables == to each other
+fruit1 == fruit2
+
+##boolean operators - > Can be combined variables/inputs with boolean operators AND, OR, NOT
+
+6 > 3 and 1 < 2
+
+```
+
+## Conditions
+
+|      |                                                                                                                             |
+|------|-----------------------------------------------------------------------------------------------------------------------------|
+| If   | If the conditions made in the statement are met then perform the operation.                                                 |
+| Else | If the conditions made in the statement are NOT met then perform another operations.                                        |
+| Elif | If the condition made in the statement are NOT met by either the IF statement or the ELSE statement perform this operation. |
+
+## Conditionals
+
+::: r-fit-text
+Python operators that looks to see if an object meets stated conditions and will then run operations based of those determinations.
+
+```{python}
+#| label: conditionals
+#| eval: false
+#| echo: true
+
+water_cold = True
+
+if water_cold:
+  print("Brrrrrr")
+
+if water_cold:
+  print("Brrrrr")
+else:
+  print("I can drink this)
+
+water_temp = 0
+
+if water_temp < 0:
+  print("Brrrrrr")
+elif water_temp > 100:
+    print("tccchhhhh")
+else:
+    print("I can drink this")
+
+
+```
+:::
+
+## Loops
+
+The requested operation will repeat until it is told to stop.
+
+## For Loops
+
+:::r-fit-text
+
+The 'for' loop is typically used when you know the number of iterations in advance or when you want to iterate over a sequence or an iterable object.
+
+*syntax: **for** variable **in** iterable*
+
+-   variable: This is a placeholder variable that will take on the value of each element in the iterable object during each iteration of the loop.
+
+-   iterable: This is the object over which the loop iterates. It can be a sequence (like a list, tuple, or string) or any other iterable object.
+
+```{python}
+#| label: for_loops
+#| eval: false
+#| echo: true
+
+#for loop
+
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+```
+
+:::
+
+## While Loops
+
+The while loop is typically used when you don't know the number of iterations in advance or when you want to loop as long as a certain condition is true.
+
+<br>
+
+```{python}
+#| label: while_loops
+#| eval: false
+#| echo: true
+
+x = 0
+while x <= 20:
+    print(x)
+    x = x + 1
+    
+print("Stop looping")
+```
+
+## Packages & Libraries
+
+packages are like toolkits or collections of pre-built functions, data sets, and tools that extend the capabilities of the R programming language.
+
+## Packages
+
+<br>
+
+#### Install
+
+You must install a package before you can load it. *But you only need to install it one time.*
+
+<br>
+
+```{python}
+#| label: install packages
+#| eval: false
+#| echo: true
+
+!conda install pandas
+
+!conda list
+
+```
+
+
+## Packages
+
+#### Import
+
+Using import for a library will bring all functions for the library into your workspace.
+
+<br>
+
+```{python}
+#| label: import_library
+#| echo: true
+#| eval: false
+
+import math
+
+# Now you can use any tool from the math toolbox
+print(math.sqrt(16))  # Output: 4.0
+print(math.pi)        # Output: 3.141592653589793
+
+
+```
+
+## Packages
+
+#### From
+
+Using from will just bring one particular function from the library into your workspace.
+
+<br>
+
+```{python}
+#| label: import_from
+#| eval: false
+#| echo: true
+
+from math import sqrt
+
+# Now you can use just the sqrt tool directly
+print(sqrt(16))  # Output: 4.0
+```
+
+## Packages
+
+#### Alias
+
+To make the library easier to reference, you can assign it an alias using the as keyword.
+
+<br>
+
+```{python}
+#| label: alias
+#| echo: true
+#| eval: false
+
+import pandas as pd 
+
+my_var = pd.Series(my_var)
+
+my_var.mean()
+```
+
+<br>
+
+## Explore your Environment
+
+<br>
+
+```{python}
+#| label: environment
+#| eval: false
+#| echo: true
+
+# see
+
+!conda list
+
+# search
+
+!conda search beautifulsoup
+
+# update
+
+!conda update beautifulsoup4
+
+```
+
+## Next Week
+
+-   Entering Data
+
+-   Loading and Exporting Data Frames
+
+-   Cleaning and Transforming Data
+
+-   Data Analysis Tools
+
+## Conclusion
+
+-   [Matt Steele](https://directory.lib.wvu.edu/employee/210/)
+-   [Data Cleaning and Analysis with Python](https://wvu.libcal.com/event/12979455)
+-   [Data Visualization and Presentation with Python](https://wvu.libcal.com/event/12979521)
+-   [Date Services Workshops](https://wvu.libcal.com/calendar/researchcommons?cid=9552&t=g&d=0000-00-00&cal=9552&ct=59746&inc=0)
