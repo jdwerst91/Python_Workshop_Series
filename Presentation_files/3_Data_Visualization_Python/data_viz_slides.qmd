@@ -1,0 +1,620 @@
+---
+title: "Data Visualization with Python"
+author: "Matt Steele"
+format: revealjs
+editor: visual
+---
+
+## Data Visualization Libraries
+
+-   [MatPlotLib](https://matplotlib.org/)
+-   [Seaborn](https://seaborn.pydata.org/)
+-   [Plotly](https://plotly.com/python/)
+-   [GeoPandas](https://geopandas.org/en/stable/index.html)
+-   [O'Reilly Learning Platform](https://databases.lib.wvu.edu/connect/1540334373)
+
+## Recap
+
+-   Functions and Arguments
+-   Variables
+-   Loading Libraries and Aliases
+-   Run Code
+
+```{python}
+#| label: import_pandas
+#| eval: false
+#| echo: true
+
+import pandas as pd
+
+```
+
+::: notes
+a "line of code" typically refers to a single statement or instruction written in the R script or console, which can be executed independently and performs a specific task or operation
+:::
+
+## MatPlotLib
+
+:::r-fit-text
+
+[https://matplotlib.org/](https://matplotlib.org/)
+
+**Overview**: A comprehensive library for creating static, animated, and interactive visualizations in Python.
+Key Features:
+
+-   Versatile Plotting: Supports various plot types, including line, bar, scatter, histogram, and more.
+-   Customization: Offers extensive options for customizing colors, labels, titles, and styles.
+-   Integration: Works seamlessly with NumPy and Pandas for data manipulation and analysis.
+-   Interactivity: Capable of generating interactive plots for use in Jupyter notebooks and web applications.
+Use Cases: Widely used in data analysis, scientific research, and machine learning to visualize data trends and patterns.
+
+:::
+
+## Load MatPlotLib Library
+
+we are going to call the MatPlotLib package. Then we will load the data we want to plot and do a bit of cleanup
+
+```{python}
+#| label: matplotlib_lib
+#| eval: false
+#| echo: true
+
+# import the library
+
+import matplotlib.pyplot as plt
+
+# load dataframe
+
+scotus = pd.read_csv("scotus_approval.csv")
+
+# set datatime
+
+scotus["date"] = pd.to_datetime(scotus["date"])
+scotus
+
+# filter pollster to YouGov
+
+scotus = scotus[scotus["pollster"] == "YouGov"]
+scotus
+
+```
+
+## MatPlotLib: [plot function](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html#matplotlib.axes.Axes.plot)
+
+:::r-fit-text
+
+The plot() function in Matplotlib is a versatile method used to create a wide range of plots from data stored in a DataFrame or arrays. Here’s a breakdown of its functionality based on the provided code:
+
+-   Data Input: Accepts data in various formats, including DataFrames, lists, and NumPy arrays.
+-   Automatic Axis Handling: Automatically assigns the x-axis and y-axis based on the DataFrame columns.
+-   Default Plot Type: By default, it creates a line plot for numeric data. Different plot types (e.g., bar, scatter) can be specified using the kind parameter (e.g., scotus.plot(kind='bar')).
+-   Customization Options: Allows customization of various plot elements, including titles, labels, and styles, through additional parameters and methods (e.g., plt.title(), plt.xlabel(), plt.ylabel()).
+
+```{python}
+#| label: matplotlib_plot_func
+#| echo: true
+#| eval: false
+
+scotus.plot()
+
+```
+
+:::
+
+## Axis/Variable Handling 
+
+Custom Axis Assignment: You can explicitly define which columns to use for the x-axis and y-axis using the x and y parameters. This allows for greater flexibility in visualizing specific relationships within your data.
+
+```{python}
+#| label: matplot_lib_axis
+#| eval: false
+#| echo: true
+
+# set date and yes appoval 
+
+scotus.plot(x="date", y="yes")
+
+
+# Show the plot
+plt.show()
+
+
+```
+
+## Stylize the Graph
+
+The plot() function provides several parameters that allow for customization of various plot elements, including color, line width, and more.
+
+```{python}
+#| label: matplotlib_stylize
+#| echo: true
+#| eval: false
+
+# Stylize the graph
+scotus.plot(x="date", y="yes", 
+            color="red",      # color
+            linewidth=0.75,   # line size
+            linestyle='--',   # Dotted line style
+            marker='o',       # Circle markers for each data point
+            markersize=5      # Size of the markers
+           )
+
+```
+
+
+## Add Labels
+
+the plt object is part of the Matplotlib library's pyplot module, which provides a collection of functions for creating static, interactive, and animated visualizations in Python.
+
+```{python}
+#| label: matplotlib_labels
+#| echo: true
+#| eval: false
+
+
+scotus.plot(x="date", y="yes", 
+            color="red",      # Color
+            linewidth=0.75,   # Line size
+            linestyle='--',   # Dotted line style
+            marker='o',       # Circle markers for each data point
+            markersize=5      # Size of the markers
+           )
+
+# Adding labels and title
+plt.title("YouGov Approval Ratings Over Time")
+plt.xlabel("Date")
+plt.ylabel("Approval Ratings (%)")
+
+## remove labels
+
+plt.xlabel("")
+
+```
+
+## Adjusting Plot Elements with plt
+
+you can fine-tune the plot’s appearance using various plt entries. These adjustments help improve readability and ensure the visual presentation aligns with the intended message.
+
+## Adjusting Plot Elements with plt
+
+```{python}
+#| label: matplot_elements
+#| echo: true
+#| eval: false
+
+# Plot the 'yes' approval ratings
+scotus.plot(x="date", y="yes", 
+            color="red",      # Color of the line
+            linewidth=0.75,   # Width of the line
+            linestyle='--',   # Dotted line style
+            marker='o',       # Circle markers for each data point
+            markersize=5      # Size of the markers
+           )
+
+# Adding title and axis labels with custom font sizes
+plt.title("YouGov Approval Ratings Over Time", fontsize=26, color = "coral") 
+plt.xlabel("")
+plt.ylabel("Approval Ratings (%)", fontweight = "bold")
+
+# Remove legend
+plt.legend().set_visible(False)
+
+# Adding grid for better readability
+plt.grid(True)
+
+
+```
+
+
+## Adjusting Scales
+
+In Matplotlib, you can adjust the scales of the axes to improve the clarity of your data visualization. Below is an example of how to set a continuous scale on the y-axis:
+
+## Adjusting Scales
+
+```{python}
+#| label: matplot_scales
+#| echo: true
+#| eval: false
+
+import matplotlib.dates as mdates
+
+scotus.plot(x="date", y="yes", 
+            color="red",      # Color of the line
+            linewidth=0.75,   # Width of the line
+            linestyle='--',   # Dotted line style
+            marker='o',       # Circle markers for each data point
+            markersize=5      # Size of the markers
+           )
+
+# Adding title and axis labels with custom font sizes
+plt.title("Scotus Approval Ratings Over Time".upper(), fontsize=20, color="red", fontfamily="Franklin Gothic Heavy")
+plt.xlabel("")  # No label for the x-axis
+plt.ylabel("Approval Ratings (%)", fontweight="bold")  # Bold y-axis label
+
+
+# Remove legend
+plt.legend().set_visible(False)
+
+# Adjusting tick parameters for better readability
+plt.tick_params(axis='both', labelsize=8)                 # Set the font size for ticks
+
+# Adding grid for better readability
+plt.grid(True)
+
+
+# Setting a continuous scale on the y-axis
+plt.ylim(30, 60)  # Set limits for y-axis for better visualization
+
+# Customizing date format on the x-axis
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))  # Format for date display
+plt.gca().xaxis.set_major_locator(mdates.MonthLocator(interval=2))   # Set major ticks every 2 months
+
+# Display the plot
+plt.show()
+
+
+
+```
+
+## Add additional variables
+
+```{python}
+#| label: matplotlib_2_vars
+#| echo: true
+#| eval: false
+
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import pandas as pd
+
+# Assume scotus DataFrame is already loaded and 'date' is in datetime format
+
+# Plotting approval ratings
+plt.plot(scotus["date"], scotus["yes"],
+         color="coral",
+         linewidth=1.5,
+         linestyle="--",
+         marker="o",
+         markersize=6,
+         alpha=0.7,
+         label="Approval")  # Label for legend
+
+# Plotting disapproval ratings
+plt.plot(scotus["date"], scotus["no"],
+         color="skyblue",
+         linewidth=1,
+         linestyle="-",
+         marker="^",
+         markersize=4,
+         alpha=0.7,
+         label="Disapproval")  # Label for legend
+
+# Adding title and labels
+plt.title("SCOTUS Ratings Over Time".upper(), fontsize=20)
+plt.xlabel("")  # No label for the x-axis
+plt.ylabel("Ratings (%)", fontweight="bold")  # Bold y-axis label
+
+# Customize legend
+plt.legend(loc="upper left", fontsize=10)
+
+# Adding grid for better readability
+plt.grid(True)
+
+# Adjusting tick parameters for better readability
+plt.tick_params(axis='both', labelsize=8)  # Set the font size for ticks
+
+# Setting a continuous scale on the y-axis
+plt.ylim(25, 70)  # Set limits for y-axis for better visualization
+
+# Add reference line for February 29, 2024
+plt.axvline(pd.Timestamp("2024-02-29"), color='green', linestyle=':', linewidth=1.5, label='Reference Date (Feb 29, 2024)')
+
+# Customizing date format on the x-axis
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))  # Format for date display
+plt.gca().xaxis.set_major_locator(mdates.MonthLocator(interval=2))   # Set major ticks every 2 months
+
+# Display the plot
+plt.show()
+
+```
+
+## Seaborn
+
+:::r-fit-text
+
+[https://seaborn.pydata.org/](https://seaborn.pydata.org/)
+
+**Overview**: A Python data visualization library based on Matplotlib, designed for statistical graphics and enhanced data exploration.
+
+**Key Features**:
+- **Built-in Themes**: Offers aesthetic themes to enhance the visual appeal of plots.
+- **Statistical Functions**: Integrates statistical functions effortlessly, such as regression lines and confidence intervals.
+- **Complex Plotting Made Easy**: Simplifies the creation of complex visualizations like heatmaps, pair plots, and violin plots.
+- **Seamless Pandas Integration**: Works effectively with Pandas DataFrames for easy data handling and visualization.
+
+:::
+
+## Load Seaborn
+
+```{python}
+#| label: seaborn_load
+#| eval: false
+#| echo: true
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
+reviews = pd.read_csv("customer_reviews.csv")
+reviews.dtypes
+
+```
+
+## Create a Bar Plot 
+
+```{python}
+#| label: sns_bar
+#| echo: true
+#| eval: false
+
+sns.countplot(data = reviews, x = "Department_Name")
+
+# Add title and labels
+plt.title('Count of Reviews by Department')
+plt.xlabel('Department Name')
+plt.ylabel('')
+
+# Show plot
+plt.show()
+
+```
+
+## Set a Style
+
+:::r-fit-text
+
+Seaborn offers several built-in themes to enhance the aesthetics of your visualizations. Setting a style can help improve readability and make your plots more visually appealing.
+
+### **Style Options**
+  - `"darkgrid"`: Light background with gridlines, great for visibility.
+  - `"whitegrid"`: Similar to darkgrid but with a white background.
+  - `"dark"`: Dark background without gridlines.
+  - `"white"`: Clean white background, minimal distractions.
+  - `"ticks"`: Adds ticks to the axes for a more refined look.
+
+:::
+
+## Set a Style
+
+```{python}
+#| label: sns_style
+#| eval: false
+#| echo: true
+
+# Set Seaborn style
+sns.set_style("darkgrid")
+
+sns.countplot(data = reviews, x = "Department_Name")
+
+# Add title and labels
+plt.title('Count of Reviews by Department')
+plt.xlabel('Department Name')
+plt.ylabel('')
+
+# Show plot
+plt.show()
+
+```
+
+## Set a Palette
+
+A well-chosen color palette can enhance the readability and aesthetic appeal of your visualizations. Seaborn supports various palettes, including those from [Color Brewer](https://colorbrewer2.org/), which are specifically designed for effective data visualization.
+
+## Set a Palette
+
+```{python}
+#| label: sns_palette
+#| echo: true
+#| eval: false
+
+# Set Seaborn style
+sns.set_style("darkgrid")
+
+# Define Color Brewer palette
+brewer_palette = sns.color_palette("YlOrRd")
+
+# Create countplot with Color Brewer palette
+sns.countplot(data=reviews, x="Department_Name", palette=brewer_palette)
+
+# Add title and labels
+plt.title('Count of Reviews by Department')
+plt.xlabel('Department Name')
+plt.ylabel('Number of Reviews')  # Added ylabel for clarity
+
+# Show plot
+plt.show()
+```
+
+
+## Plotly
+
+:::r-fit-text
+
+[https://plotly.com/python/](https://plotly.com/python/)
+
+**Overview**: Plotly is a powerful library for creating interactive visualizations in Python. It supports a wide range of chart types and is designed for high-quality, web-based graphics.
+
+### Key Features:
+
+- **Interactive Visualizations**: Easily create plots that allow for zooming, panning, and hovering over data points for more information.
+- **Versatile Plotting**: Supports various chart types, including line, bar, scatter, heatmaps, 3D plots, and geographic maps.
+- **Customization**: Offers extensive options for customizing colors, labels, titles, and layouts through a flexible API.
+- **Integration**: Works seamlessly with Pandas and NumPy, allowing for smooth data manipulation and analysis.
+- **Web Integration**: Built for the web, making it easy to embed visualizations in web applications or share them online.
+
+:::
+
+## Create a Histogram
+
+```{python}
+#| label: plotly_hist
+#| echo: true
+#| eval: false
+
+import plotly.graph_objects as go
+
+# Assuming reviews is a DataFrame containing data
+# Create a Plotly histogram figure
+fig = go.Figure(data=[go.Histogram(x=reviews["Age"])])
+
+# Display the histogram
+fig.show()
+```
+
+
+## Add Bins
+
+Adding bins to a histogram is crucial for visualizing the distribution of data. In Plotly, you can specify the number of bins to better understand the frequency of data points within specified ranges.
+
+## Add Bins
+ 
+```{python}
+#| label: plotly_bins
+#| eval: false
+#| echo: true
+
+# Create a Plotly histogram figure with additional options
+fig = go.Figure(data=[go.Histogram(x=reviews["Age"],
+                                   # Set number of bins
+                                   nbinsx=20,
+                                   )])
+
+# Update layout for better appearance
+fig.update_layout(title="Histogram of Age",
+                  xaxis_title="Age",
+                  yaxis_title="Frequency",
+                  
+                 )
+
+# Display the histogram
+fig.show()
+
+
+```
+
+## Change theme
+
+:::r-fit-text
+
+You can change the theme in Plotly by using the plotly.io module.
+
+1. **plotly**
+   - The default Plotly theme with a classic look.
+
+2. **ggplot2**
+   - Inspired by the ggplot2 library, this theme provides a clean and modern aesthetic.
+
+3. **seaborn**
+   - Inspired by the Seaborn library, this theme emphasizes visual appeal with muted colors and a grid background.
+
+4. **simple_white**
+   - A minimalist theme with a white background, suitable for clean presentations.
+
+5. **presentation**
+   - Designed for creating presentation-ready plots, with a focus on visibility and clarity.
+
+6. **xgridoff**
+   - A theme with grid lines removed, providing a cleaner look for visualizations.
+
+7. **ygridoff**
+   - Similar to xgridoff but removes vertical grid lines.
+
+8. **plotly_white**
+   - A theme with a white background and light grid lines, combining elements from Plotly and simple white.
+
+9. **plotly_dark**
+   - A dark theme that provides high contrast for visualizations, making them suitable for dark backgrounds.
+
+10. **dark**
+    - A simple dark theme, offering high contrast for better visibility.
+    
+:::
+
+## Change theme
+
+```{python}
+#| label: plotly_theme
+#| echo: true
+#| eval: false
+
+import plotly.io as pio
+
+# Set the default theme
+pio.templates.default = "ggplot2"  # Change to any available theme like 'plotly', 'ggplot2', etc.
+
+
+# Create a Plotly histogram figure with additional options
+fig = go.Figure(data=[go.Histogram(
+    x=reviews["Age"],
+    # Set number of bins
+    nbinsx=20,
+    opacity=0.7,
+    # Set fill and line colors
+    marker=dict(
+        color='#ffbf00',  # Fill color
+        line=dict(color='#f08080', width=3)  # Line color and width
+    )
+)])
+
+# Update layout for better appearance
+fig.update_layout(
+    title="Histogram of Age",
+    xaxis_title="Age",
+    yaxis_title="Frequency",
+    bargap=0.1,  # Set gap between bars
+)
+
+# Display the histogram
+fig.show()
+
+```
+
+## Size of the Graph
+
+```{python}
+#| label: plotly_size
+#| echo: true
+#| eval: false
+
+# Set the default theme
+pio.templates.default = "ggplot2"  # Change to any available theme like 'plotly', 'ggplot2', etc.
+
+# Create a Plotly histogram figure with additional options
+fig = go.Figure(data=[go.Histogram(
+    x=reviews["Age"],
+    # Set number of bins
+    nbinsx=20,
+    opacity=0.7,
+    # Set fill and line colors
+    marker=dict(
+        color='#ffbf00',  # Fill color
+        line=dict(color='#f08080', width=3)  # Line color and width
+    )
+)])
+
+# Update layout for better appearance, including figure size
+fig.update_layout(
+    title="Histogram of Age",
+    xaxis_title="Age",
+    yaxis_title="Frequency",
+    bargap=0.1,  # Set gap between bars
+    width=800,   # Set the width of the figure
+    height=600   # Set the height of the figure
+)
+
+# Display the histogram
+fig.show()
+
+```
