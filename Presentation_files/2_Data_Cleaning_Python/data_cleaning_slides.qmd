@@ -1,0 +1,682 @@
+---
+title: "Data Cleaning with Python and Pandas"
+author: "Matt Steele"
+format: revealjs
+editor: visual
+---
+
+## Resources
+
+-   [Pandas Documentation](https://pandas.pydata.org/docs/index.html)
+
+-   [O'Reilly Learning Platform](https://databases.lib.wvu.edu/connect/1540334373)
+
+## Agenda
+
+-   Entering your data \[lists, dictionaries, series, data frames\]
+-   Reading data sets and cleaning data
+-   Analyzing data
+
+## Recap
+
+-   Functions and Arguments
+-   Variables
+-   Run Code
+
+::: notes
+a "line of code" typically refers to a single statement or instruction written in the R script or console, which can be executed independently and performs a specific task or operation
+:::
+
+## Sequence Types
+
+ordered collections of data items of the same type.
+
+[Python Documentation - Sequence Types](https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range)
+
+<br>
+
+::: r-fit-text
++-----------------+--------------------------------------------------------------------------------------------+--------------------------------------------+
+| Tupples         | A tuple is a collection which is ordered and unchangeable.                                 | (1, 2, 3, 4)                               |
++-----------------+--------------------------------------------------------------------------------------------+--------------------------------------------+
+| Sets            | A set is a collection which is unordered, unchangeable, and unindexed.                     | {1, 2, 3, 4}                               |
++-----------------+--------------------------------------------------------------------------------------------+--------------------------------------------+
+| Dictionaries    | A dictionary is a collection which is ordered\*, changeable and does not allow duplicates. | {key1: value1, key2: value2, key3:value3 } |
++-----------------+--------------------------------------------------------------------------------------------+--------------------------------------------+
+:::
+
+## Dictionary
+
+A dictionary is a collection which is ordered\*, changeable and does not allow duplicates.
+
+```{python}
+#| label: example_dictionary
+#| eval: false
+#| echo: true
+
+country_roads = {"Morgantown": 30847, "Charlestown": 45879, 
+"Reedsville": 603, "Huntington": 44934}
+
+print(country_roads)
+
+```
+
+## Data science libraries in Python
+
+::: r-fit-text
+Listed below are the major libraries that provide built-in functions, methods, and constants that are important for doing data science analysis. Each library has a website with documentation (remember the Python Standard Library) that is great for reference and tutorials.
+
++------------------------------------------------------------------+------------------------------------------------+
+| ### Storage, Manipulations, Calculations                         | ### Visualization                              |
+|                                                                  |                                                |
+| -   [Numpy](https://numpy.org/)                                  | -   [Matplotlib](https://matplotlib.org/)      |
+|                                                                  |                                                |
+| -   [Pandas](https://pandas.pydata.org/)                         | -   [Bokeh](https://bokeh.org/)                |
+|                                                                  |                                                |
+| -   [Scipy](https://www.scipy.org/scipylib/index.html)           |                                                |
+|                                                                  |                                                |
+| -   [StatsModels](https://www.statsmodels.org/stable/index.html) |                                                |
++------------------------------------------------------------------+------------------------------------------------+
+|                                                                  | ### Machine Learning                           |
+|                                                                  |                                                |
+|                                                                  | -   [SciKit](https://scikit-learn.org/stable/) |
+|                                                                  |                                                |
+|                                                                  | -   [TensorFlow](https://www.tensorflow.org/)  |
+|                                                                  |                                                |
+|                                                                  | -   [Keras](https://keras.io/)                 |
++------------------------------------------------------------------+------------------------------------------------+
+
+### 
+:::
+
+## Series
+
+Like a dictionary in the standard library, a series from Pandas allows you to store key-value pairs in python.
+
+```{python}
+#| label: example_series
+#| eval: false
+#| echo: true
+
+import pandas as pd
+
+series_example = pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])
+series_example
+```
+
+## Data Frame
+
+A **Pandas DataFrame** is a two-dimensional, size-mutable, and heterogeneous tabular data structure. It is composed of:
+
+-   **Variables** (or columns), which represent the data types.
+
+-   **Observations** (or rows), which represent individual data entries.
+
+Each variable (column) in a DataFrame typically contains data of the same type (e.g., integers, strings). However, different variables can contain different data types.
+
+## Step 1: Create Series
+
+::: r-fit-text
+-   All Series must have the same size to combine them later.
+-   For this example, we're creating four Series: year, title, length, and gross, representing movie data.
+
+<br>
+
+```{python}
+#| label: create data frame
+#| eval: false
+#| echo: true
+
+import pandas as pd
+
+# Creating individual Series for each column
+year = pd.Series([1977, 1980, 1983], name="Year")
+
+title = pd.Series(["Star Wars", "Empire Strikes Back", "Return of the Jedi"], 
+name="Title")
+
+length = pd.Series([121, 124, 144], name="Length")
+
+gross = pd.Series([787, 534, 572], name="Gross")
+
+
+```
+
+<br>
+
+-   Each Series is assigned a name, which will later become the column name in the DataFrame.
+-   All the Series have the same number of entries (3 in this case), making them ready to merge into a DataFrame.
+:::
+
+## Step 2: Merge the Series into a data frame
+
+::: r-fit-text
+```{python}
+#| label: merge_series
+#| echo: true
+#| eval: false
+
+# Creating the DataFrame
+starwars_df = pd.DataFrame({
+    "Year": year,
+    "Title": title,
+    "Length": length,
+    "Gross": gross
+})
+
+# Displaying the DataFrame
+print(starwars_df)
+
+```
+
+<br>
+
+-   After creating the Series, you can merge them into a DataFrame, which is a table-like structure.
+-   Each Series becomes a column in the DataFrame, and the DataFrame organizes the data for further analysis.
+:::
+
+## Subsetting Variables
+
+used to select and work with specific variables (columns) from a data frame.
+
+<br>
+
+```{python}
+#| label: subsetting
+#| eval: false
+#| echo: true
+
+starwars_df['Title']
+
+mean_length = starwars_df["Length"].mean()
+
+# Displaying the result
+
+print("Mean Length of Movies:", mean_length)
+```
+
+## Export / Save Data
+
+Once you are done entering your data, you can export it to your working directory. The function without built-in arguments is **write.table( )** but if are saving it as a csv, you are better using **write.csv( )**.
+
+<br>
+
+```{python}
+#| label: export files
+#| eval: false
+#| echo: true
+
+# Exporting the DataFrame to a CSV file
+starwars_df.to_csv("starwars.csv", index=False)
+```
+
+## Importing/Reading Data
+
+::: r-fit-text
++----------------+----------------------------------------------------------------------------------------------------------+
+| read_csv       | Load delimited data from a file, URL, or file-like object; use comma as default delimiter                |
++----------------+----------------------------------------------------------------------------------------------------------+
+| read_fwf       | Read data in fixed-width column format (i.e., no delimiters)                                             |
++----------------+----------------------------------------------------------------------------------------------------------+
+| read_excel     | Read tabular data from an Excel XLS or XLSX file                                                         |
++----------------+----------------------------------------------------------------------------------------------------------+
+| read_html      | Read all tables found in the given HTML document                                                         |
++----------------+----------------------------------------------------------------------------------------------------------+
+| read_json      | Read data from a JSON (JavaScript Object Notation) string representation, file, URL, or file-like object |
++----------------+----------------------------------------------------------------------------------------------------------+
+| read_sas       | Read a SAS dataset stored in one of the SAS system's custom storage formats                              |
++----------------+----------------------------------------------------------------------------------------------------------+
+| read_spss      | Read a data file created by SPSS                                                                         |
++----------------+----------------------------------------------------------------------------------------------------------+
+| read_stata     | Read a data set from Stata file format                                                                   |
++----------------+----------------------------------------------------------------------------------------------------------+
+| read_xml       | Read a table of data from an XML file                                                                    |
++----------------+----------------------------------------------------------------------------------------------------------+
+:::
+
+## Read Non-Proprietary Data
+
+-   Non-proprietary files, like CSV, are open formats that can be used and shared across different software platforms.
+
+-   CSV (Comma-Separated Values) files store data in a plain text format where values are separated by commas. They are commonly used because they are simple and widely supported.
+
+<br>
+
+```{python}
+#| label: read_csv
+#| eval: false
+#| echo: true
+
+import pandas as pd
+
+reviews = pd.read_csv("customer_reviews.csv")
+
+```
+
+## Read Proprietary Data
+
+-   Proprietary files, such as SPSS (.sav), are used by specific software systems and often require special tools to open.
+
+-   Python can handle proprietary formats like SPSS without needing the original software (SPSS), making it a versatile tool for data analysis.
+
+<br>
+
+```{python}
+#| label: spss_file
+#| eval: false
+#| echo: true
+
+import pandas as pd
+
+demographics = pd.read_spss("demographics.sav")
+demographics
+
+```
+
+## View Environment
+
+The environment in Python is where all your variables, functions, and imported libraries are stored during your current session.
+
+<br>
+
+```{python}
+#| label: view environment
+#| eval: false
+#| echo: true
+
+%whos
+
+```
+
+## Explore a Data Frame
+
+::: r-fit-text
++-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| syntax          | example                                | description                                                                                                                                               |
++=================+========================================+===========================================================================================================================================================+
+| .head()         | reviews.head()                         | displays the first 5 rows of the DataFrame.                                                                                                               |
++-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| .dtypes         | reviews.dtypes                         | shows the data type of each column (e.g., integers, floats, objects).                                                                                     |
++-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| .info()         | reviews.info()                         | provides a summary of the DataFrame, including the number of rows, columns, and the data types for each column, as well as information on missing values. |
++-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| .shape          | reviews.shape                          | returns the dimensions of the DataFrame as a tuple (rows, columns).                                                                                       |
++-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| .columns        | reviews.columns                        | gives you a list of all column names in the DataFrame.                                                                                                    |
++-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| .describe       | reviews.describe()                     | generates summary statistics for numerical columns, such as mean, median, standard deviation, and percentiles.                                            |
++-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+| .value_counts() | reviews\["Class_Name"\].value_counts() | counts the occurrences of each unique value in a specified column.                                                                                        |
++-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+:::
+
+## Descriptive Statistics.
+
+::: r-fit-text
++--------------------+--------------------------+---------------------------------+
+| **syntax**         | example                  | **description**                 |
++====================+==========================+=================================+
+| .count()           | reviews.count()          | Total number of items           |
++--------------------+--------------------------+---------------------------------+
+| .first(), .last()  | reviews\['Age'\].first() | First and last item             |
++--------------------+--------------------------+---------------------------------+
+| .mean(), .median() | reviews\['Age'\].mean()  | Mean and median                 |
++--------------------+--------------------------+---------------------------------+
+| .min(), .max()     | reviews\['Age'\].min()   | Minimum and maximum             |
++--------------------+--------------------------+---------------------------------+
+| .std(), .var()     | reviews\['Age'\].std()   | Standard deviation and variance |
++--------------------+--------------------------+---------------------------------+
+| .sum()             |                          | Sum of all items                |
++--------------------+--------------------------+---------------------------------+
+:::
+
+## Cleaning Data
+
+-   Data in columns and rows are not ordered in the correct way
+
+-   Creating values or ignoring missing data
+
+-   Units are not correct or are wrong in some way
+
+-   Order of magnitude is off
+
+-   Outliers and skewing of the dataDplyr function: filter
+
+## Filter
+
+allows you to *select rows* in your data frame that meet specific conditions or criteria in a variable
+
+<br />
+
+```{python}
+#| label: filter function
+#| eval: false
+#| echo: true
+
+
+#find the mean of rating that people who bought from the General Department 
+
+reviews_filter = reviews[reviews["Division_Name"]== "General"]
+
+```
+
+## Boolean Operators
+
+boolean operators allow you to build criteria in your code
+
+|     |                       |
+|-----|-----------------------|
+| ==  | EQUAL                 |
+| !=  | NOT EQUAL             |
+| \<  | LESS THAN             |
+| \>  | GREATER THAN          |
+| \<= | LESS THAN OR EQUAL    |
+| \>= | GREATER THAN OR EQUAL |
+
+## Filter with Boolean
+
+let's filter the data frame for characters who have blue eyes and were born after 50 BBY
+
+<br />
+
+```{python}
+#| label: filter with more than one criteria
+#| eval: false
+#| echo: true
+
+reviews_filter_2 = reviews[(reviews["Division_Name"] == "General") & 
+(reviews["Age"] < 40)]
+
+```
+
+## Select
+
+allows you to *keep* or *discard* variables
+
+<br />
+
+```{python}
+#| label: select function
+#| eval: false
+#| echo: true
+
+# view
+
+reviews.columns 
+
+# select variables
+
+reviews_select = reviews[['Age', 'Title', 'Division_Name',
+       'Department_Name', 'Class_Name']]
+       
+reviews_select
+
+```
+
+## Assign
+
+*creates* new variables in your data or *change* existing variables by performing calculations or transformations.
+
+<br />
+
+```{python}
+#| label: assign function
+#| eval: false
+#| echo: true
+
+demographics
+
+demographics = demographics.assign(income = (demographics["income"]/1000))
+demographics
+
+```
+
+<br >
+
+NOTE: if you name your variable as an *existing variable*, it will *overwrite* the existing variable. If you give it a *new name*, it will create a *new variable*
+
+## Recode
+
+:::r-fit-text
+
+Transform the values of a variable into new values based on specific criteria
+
+<br>
+
+```{python}
+#| label: recode
+#| eval: false
+#| echo: true
+
+# view observation categories
+
+reviews["Recommended_IND"].value_counts()
+
+# create a new variable
+
+reviews = reviews.assign(Recommended_recode = 
+reviews["Recommended_IND"].map({0: "No", 1: "Yes"}))
+
+reviews
+
+#overwrite the variable
+
+reviews_recode = 
+reviews["Recommended_IND"].replace([1, 0], ["Yes", "No"])
+
+reviews_recode
+
+```
+
+:::
+
+## Recode Data Values
+
+The .**astype** function will allow you to change the data type of a variable.
+
+<br />
+
+```{python}
+#| label: recode_values
+#| eval: false
+#| echo: true
+
+# view types of data values in the dataframe
+
+reviews.dtypes
+
+# Clothing ID should be a string
+reviews['Clothing_ID'] = reviews['Clothing_ID'].astype("str")
+
+# Recommended_IND, Division_Name, Department_Name, and Class_Name should be a category
+reviews[['Recommended_IND', 'Division_Name', 'Department_Name', 'Class_Name']] = 
+reviews[['Recommended_IND', 'Division_Name', 'Department_Name', 'Class_Name']].
+astype("category")
+
+# view the values
+
+reviews.dtypes
+
+
+```
+
+## Rename
+
+Rename the column
+
+<br>
+
+```{python}
+#| label: rename
+#| echo: true
+#| eval: false
+
+reviews = 
+reviews.rename(columns={"Recommended_IND": "Recommended_num", 
+"Recommended_recode":"Recommended_label"})
+
+reviews
+
+```
+
+## Relocate
+
+Move the column location in the data frame
+
+<br>
+
+```{python}
+#| label: relocate
+#| eval: false
+#| echo: true
+
+reviews.columns
+
+new_order = ['Clothing_ID', 'Age', 'Title', 
+             'Review_Text', 'Rating', 'Recommended_num', 'Recommended_label',
+             'Positive_Feedback_Count', 'Division_Name', 
+             'Department_Name', 'Class_Name']
+
+reviews = reviews[new_order]
+reviews
+
+```
+
+## Sort
+
+allows you to *sort* variables
+
+<br />
+
+```{python}
+#| label: sort function
+#| eval: false
+#| echo: true
+
+
+reviews.sort_values(by="Rating", ascending=False)
+
+```
+
+## Group_by & aggregate
+
+::: r-fit-text
+the **group_by** function allows you to group common observations in a variable
+
+<br />
+
+**aggregate** function allows you to get descriptive statistics about the groupings
+
+<br />
+
+```{python}
+#| label: group_by and summarise
+#| eval: false
+#| echo: true
+
+#Groupby
+
+class_rating = reviews[["Rating", "Class_Name"]].groupby("Class_Name", observed=True).mean()
+class_rating
+
+
+#class_rating = reviews[["Rating", "Class_Name"]].groupby("Class_Name", observed=True).describe()
+#class_rating
+
+# aggregate 
+
+result = reviews.groupby('Class_Name', observed=True)[['Rating', 'Positive_Feedback_Count']].agg(['min', 'mean', 'std', 'max'])
+
+result
+
+```
+:::
+
+## Missing Data
+
+missing data in numeric fields can cause an issue when trying to calculate descriptive statistics
+
+<br />
+
+```{python}
+#| label: missing data
+#| eval: false
+#| echo: true
+
+# are there missing NA values
+
+number_missing = reviews.isna().sum()
+number_missing
+
+```
+
+## dropna
+
+removes **all** missing data from data frames or variables
+
+```{python}
+#| label: drop_na
+#| eval: false
+#| echo: true
+
+reviews.shape
+
+#remove all observations with na
+
+reviews_na = reviews.dropna()
+
+number_missing = reviews_na.isna().sum()
+number_missing
+
+```
+
+<br />
+
+we can also just drop NAs from a **variable**
+
+```{python}
+#| label: drop na var
+#| eval: false
+#| echo: true
+
+reviews_na = reviews[reviews['Title'].notna()]
+reviews_na
+
+number_missing = reviews_na.isna().sum()
+number_missing
+```
+
+## fillna
+
+you can also recode the NA values for observations with *fillna*
+
+<br />
+
+```{python}
+#| label: fillna
+#| eval: false
+#| echo: true
+
+reviews["Title"] = reviews["Title"].fillna("None Given")
+reviews["Title"]
+
+```
+
+## Export: to_csv
+
+the **to_csv** function allows us to export data frames to a csv file once we are done cleaning it up or when we have done some analysis that we want to export
+
+<br />
+
+```{python}
+#| label: exporting data
+#| eval: false
+#| echo: true
+
+# now that we have this date frame cleaned let's save it
+
+# let's export the file
+
+reviews.to_csv("cleaned_reviews.csv")
+
+```
