@@ -1,1 +1,2 @@
-*.ipynb diff=jupyter
+*.ipynb linguist-language=Jupyter Notebook
+* linguist-hidden=true
