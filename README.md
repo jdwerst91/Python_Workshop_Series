@@ -7,19 +7,19 @@ West Virginia University (WVU) Libraries present a series of hands-on workshops 
 Our goal is to provide participants with a practical foundation in Python, enabling them to manage, analyze, and visualize data effectively in their academic or professional projects.
 
 ### Hosts
-- **Matt Steele** - [Research Engagement Librarian](https://directory.lib.wvu.edu/employee/210/)  
-  Matt offers data services and analytics consultation at WVU Libraries.
+- **Yiheng Wu** - [Research Engagement Librarian](https://directory.lib.wvu.edu/employee/331/)  
+  Yiheng Wu offers data services and analytics consultation at WVU Libraries.
   
 - **Jeff Werst** - [Student Success Librarian](https://directory.lib.wvu.edu/employee/259/)  
-  Jeff focuses on student success and science-based instructional support at WVU Libraries.
+  Jeff focuses on student success and data-based instructional support at WVU Libraries.
 
 ## Workshop Series
 
-### Part 1: First Steps with Python and Jupyter Notebooks
+### Part 1: First Steps with Python and Google Colab
 Participants will be introduced to:
 - Key Python functions and syntax.
 - How to load, enter, and manage data within Python.
-- Navigating Jupyter Notebooks’ interface and core components.
+- Navigating Google Colabs’ interface and core components.
 
 ### Part 2: Data Cleaning and Analysis with Python and pandas
 Participants will be introduced to:
@@ -29,12 +29,12 @@ Participants will be introduced to:
 ### Part 3: Data Visualization and Presentation with Python and matplotlib
 Participants will be introduced to:
 - Create informative visualizations using the `matplotlib` and `seaborn` libraries.
-- Present data and findings in professional reports using Jupyter Notebooks.
+- Present data and findings in professional reports using Jupyter Notebooks or Google Colab.
 
 ## Learning Objectives
 By the end of the workshop series, participants will be able to:
 1. Understand the use cases for Python and compare it with alternative programming languages.
-2. Navigate and utilize the Jupyter Notebooks environment, including the cells, editor, and help tools.
+2. Navigate and utilize the Google Colab environment, including the cells, editor, and help tools.
 3. Write and run basic Python scripts and understand Python syntax (operators, functions, packages, data types, and structures).
 4. Import, clean, and transform datasets using Python.
 5. Visualize and present data insights with graphs and reports.
