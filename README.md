@@ -44,10 +44,12 @@ By the end of the workshop series, participants will be able to:
 - Data services workshops: [WVU Data Services Calendar](https://wvu.libcal.com/calendar/researchcommons?cid=9552&t=g&d=0000-00-00&cal=9552&ct=59746&inc=0)
 
 ## Software Requirements
-Before attending the workshops, participants must install the following software:
-1. [Python](https://www.python.org/downloads/) - The Python programming language.
-2. [Anaconda](https://www.anaconda.com/products/individual) - A distribution that includes Python, Jupyter, and many popular packages for data science.
-3. [GitHub Desktop](https://desktop.github.com/) - A graphical interface for managing Git and GitHub repositories.
+Before attending the workshops, participants must prepare the following software:
+  We'll be using [Google Colab](https://colab.research.google.com/) - Google's online coding tool for use with Python
+Alternatively, advanced users can opt for Python, and Juypter Notebooks (through Anaconda), locally on your own machine.
+  [Python](https://www.python.org/downloads/) - The Python programming language.
+  [Anaconda](https://www.anaconda.com/products/individual) - A distribution that includes Python, Jupyter, and many popular packages for data science.
+  
 
 ## Course Materials
 All workshop lesson plans, slides, and supplemental materials are available in the `Presentation_files` folder of this repository.
