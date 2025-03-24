@@ -54,4 +54,4 @@ All workshop lesson plans, slides, and supplemental materials are available in t
 
 ---
 
-For further assistance or questions, please reach out to Matt Steele or Jeff Werst via the links provided above.
+For further assistance or questions, please reach out to Yiheng Wu or Jeff Werst via the links provided above.
